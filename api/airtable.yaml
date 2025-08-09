@@ -1,0 +1,59 @@
+openapi: "3.0.0"
+info:
+  title: "Airtable API"
+  version: "v1"
+servers:
+  - url: https://api.airtable.com/v0
+paths:
+  /{baseId}/{tableIdOrName}/{recordId}:
+    get:
+      summary: "Retrieve a single Airtable record"
+      operationId: "GetRecord"
+      parameters:
+        - name: baseId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: tableIdOrName
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: recordId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: cellFormat
+          in: query
+          schema:
+            type: string
+            enum: ["json", "string"]
+        - name: returnFieldsByFieldId
+          in: query
+          schema:
+            type: boolean
+      responses:
+        "200":
+          description: Record retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  createdTime:
+                    type: string
+                  fields:
+                    type: object
+                    additionalProperties: true
+      security:
+        - bearerAuth: []
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: "JWT"

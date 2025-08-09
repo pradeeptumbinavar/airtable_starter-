@@ -1,0 +1,6 @@
+package: gen
+generate:
+  models: true
+  client: true
+  chi-server: true
+output: gen/airtableapi/airtable.gen.go
